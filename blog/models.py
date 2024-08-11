@@ -6,10 +6,12 @@ from django.utils import timezone
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True)
+    to_process = models.BooleanField(default=True) # New field.
 
     def save(self, *args, **kwargs):
-        self.name = self.name.title()
         self.slug = slugify(self.name.lower())
+        if self.to_process:
+            self.name = self.name.title()
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -28,12 +30,14 @@ class Post(models.Model):
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    is_blog_header = models.BooleanField(default=False)
-    is_header = models.BooleanField(default=False)
+    is_blog_featured = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
+    to_process = models.BooleanField(default=True) # New field.
 
     def save(self, *args, **kwargs):
-        self.title = self.title.title()
         self.slug = slugify(self.title.lower())
+        if self.to_process:
+            self.title = self.title.title()
         super().save(*args, **kwargs)
 
     def __str__(self):

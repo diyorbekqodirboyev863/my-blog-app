@@ -5,6 +5,7 @@ from . import models
 @admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'created_at']
+    list_filter = ['category']
 
 # Category.
 @admin.register(models.Category)
