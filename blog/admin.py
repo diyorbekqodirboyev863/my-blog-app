@@ -11,3 +11,8 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
+
+# Widget.
+@admin.register(models.Widget)
+class WidgetAdmin(admin.ModelAdmin):
+    list_display = ['title', 'post']

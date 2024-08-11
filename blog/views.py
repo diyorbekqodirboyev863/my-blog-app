@@ -20,8 +20,9 @@ def blog(request):
     '''Blog.'''
     posts = models.Post.objects.filter(is_featured=False, is_blog_featured=False) # Get all posts.
     post = models.Post.objects.filter(is_blog_featured=True).last() # Get the header post of the blog.
+    widget = models.Widget.objects.last() # Get the last widget.
     categories = models.Category.objects.all() # Get all categories.
-    return render(request=request, template_name='blog.html', context={'posts': posts, 'post': post ,'categories': categories})
+    return render(request=request, template_name='blog.html', context={'posts': posts, 'post': post ,'categories': categories, 'widget': widget})
 
 # Contact.
 def contact(request):

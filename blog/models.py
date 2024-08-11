@@ -42,3 +42,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class Widget(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name='widgets')
+    to_process = models.BooleanField(default=True)
+    
+    def save(self, *args, **kwargs):
+        if self.to_process:
+            self.title = self.title.title()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
