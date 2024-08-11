@@ -6,7 +6,11 @@
     <header class="py-5 mb-4">
         <div class="container">
             <div class="text-center my-3">
-                <h1 class="display-5 text-uppercase">Welcome to Guest!</h1>
+                {% if user.is_authenticated %}
+                    <h1 class="display-5 text-uppercase">Welcome {{ user.username }}</h1>
+                {% else %}
+                    <h1 class="display-5 text-uppercase">Welcome Guest!</h1>
+                {% endif %}
                 <p class="lead mb-0">This site is the official blog of <i>Diyorbek Qodirboyev</i>.</p>
             </div>
         </div>
